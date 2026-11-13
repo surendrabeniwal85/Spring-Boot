@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="alien" class="com.step1.Alien">
+    </bean>
+    <bean id="calculator" class="com.step1.Calculator">
+    </bean>
+    <bean id="lap" class="com.step1.Laptop">
+    </bean>
+</beans>

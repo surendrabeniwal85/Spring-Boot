@@ -1,0 +1,21 @@
+
+# Java compiled files
+*.class
+*.log
+
+# Maven
+**/target/
+
+# Gradle
+**/build/
+.gradle/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Environment files and local secrets
+.env
+.env.*
+!.env.example
