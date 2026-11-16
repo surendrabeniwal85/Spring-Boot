@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-//@Component
+// @Component
 public class StudentService {
 
     //1.Listen to an endpoint
@@ -29,30 +29,31 @@ public class StudentService {
 
     public Student createStudent(Student studentReq)
     {
-
+        studentReq.setDeleted(false);
         Student studentResp = studentRepository.save(studentReq);
         return studentReq;
     }
 
     public Student getStudent(long id)
     {
-//        return studentRepository.getOne(id);
-        Optional<Student> studentResp = studentRepository.findById(id);
+        // return studentRepository.getOne(id);
+        Optional<Student> studentResp = studentRepository.findByIdAndDeletedFalse(id);
         if(studentResp.isPresent()) {
             return studentResp.get();
         }
         return null;
     }
+
     //GetAll
     public List<Student> getAllStudent()
     {
-        List<Student> studentList = studentRepository.findAll();
+        List<Student> studentList = studentRepository.findAllByDeletedFalse();
         return studentList;
     }
 
     //Update Student
     public Student updateStudent(Long id, Student studentReq) {
-        Optional<Student> existingStudent = studentRepository.findById(id);
+        Optional<Student> existingStudent = studentRepository.findByIdAndDeletedFalse(id);
         if (existingStudent.isEmpty()) {
             return null;
         }
@@ -66,12 +67,31 @@ public class StudentService {
 
         return studentRepository.save(studentTosave);
     }
+
     public Boolean deleteStudent(long id)
     {
-        Boolean isStudent = studentRepository.existsById(id);
+        Optional<Student> existingStudent = studentRepository.findByIdAndDeletedFalse(id);
 
-        if(!isStudent) return false;
-        studentRepository.deleteById(id);
+        if(existingStudent.isEmpty()) return false;
+
+        Student student = existingStudent.get();
+        student.setDeleted(true);
+        studentRepository.save(student);
+        return true;
+    }
+
+    /* Soft Delete */
+    public Boolean deleteStudentSoftly(Long id){
+
+        Optional<Student> existingStudent = studentRepository.findByIdAndDeletedFalse(id);
+
+        if(existingStudent.isEmpty()){
+            return false;
+        }
+
+        Student student = existingStudent.get();
+        student.setDeleted(true);
+        studentRepository.save(student);
         return true;
     }
 }
