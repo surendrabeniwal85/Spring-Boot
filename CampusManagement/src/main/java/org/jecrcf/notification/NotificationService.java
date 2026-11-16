@@ -6,4 +6,3 @@ public interface NotificationService {
 
     void sendNotification(Student student);
 }
-

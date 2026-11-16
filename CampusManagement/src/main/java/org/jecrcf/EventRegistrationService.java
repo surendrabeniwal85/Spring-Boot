@@ -28,4 +28,3 @@ public class EventRegistrationService {
         System.out.println("Event Registration Completed...");
     }
 }
-
